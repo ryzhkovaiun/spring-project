@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav>
+    <a aria-current="page" th:href="@{/register}">Register</a>
+</nav>
+<br /><br />
+<div>
+    <div th:if="${param.error}">
+        <div class="alert alert-danger">Invalid username or password</div>
+    </div>
+    <div th:if="${param.logout}">
+        <div class="alert alert-success">You have been logged out.</div>
+    </div>
+    <form method="post" role="form" th:action="@{/login}" class="form-horizontal">
+        <div class="form-group mb-3">
+            <label class="control-label">Username</label>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                class="form-control"
+            />
+        </div>
+        <div class="form-group mb-3">
+            <label class="control-label">Password</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control"
+            />
+        </div>
+        <div class="form-group mb-3">
+            <button type="submit" class="btn btn-primary" >Submit</button>
+            <span>Not registered? <a th:href="@{/register}">Register here</a></span>
+        </div>
+    </form>
+</div>
+</body>
+</html>

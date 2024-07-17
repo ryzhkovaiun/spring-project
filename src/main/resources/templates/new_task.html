@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav>
+    <a aria-current="page" th:href="@{/tasks(filter=${filter.name()},keyword=${keyword})}">Tasks</a>
+</nav>
+<br /><br />
+<div>
+    <form method="post" role="form" th:action="@{/tasks/new(filter=${filter.name()},keyword=${keyword})}" th:object="${task}">
+        <div class="form-group mb-3">
+            <label class="form-label">Task Name</label>
+            <input
+                    class="form-control"
+                    id="name"
+                    name="name"
+                    th:field="*{name}"
+                    type="text"
+            />
+            <p th:errors = "*{name}" class="text-danger"
+               th:if="${#fields.hasErrors('name')}"></p>
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label">Description</label>
+            <input
+                    class="form-control"
+                    id="description"
+                    name="description"
+                    th:field="*{description}"
+                    type="text"
+            />
+            <p th:errors = "*{description}" class="text-danger"
+               th:if="${#fields.hasErrors('description')}"></p>
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label">Expiration date</label>
+            <input
+                    class="form-control"
+                    id="expirationDate"
+                    name="expirationDate"
+                    th:field="*{expirationDate}"
+                    type="datetime-local"
+            />
+        </div>
+        <div class="form-group mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select class="form-control" id="category" name="category" th:field="*{category}">
+                <option th:each="category : ${T(entities.Category).values()}"
+                        th:value="${category.name()}"
+                        th:text="${category.getFancyName()}"
+                        th:selected="${category.isDefaultValue()}"
+                        th:disabled="${category.isDefaultValue()}"
+                        th:hidden="${category.isDefaultValue()}">
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Create new task</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
